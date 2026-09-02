@@ -1,0 +1,4 @@
+.env
+mct_env/
+__pycache__/
+*.pyc

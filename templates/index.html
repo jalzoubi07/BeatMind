@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BeatMind</title>
+
+  <!-- Google font + favicon -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/static/BeatMindLogo.png">
+
+  <!-- theme color for mobile -->
+  <meta name="theme-color" content="#0f1724">
+
+  <!-- your stylesheet -->
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="app" role="main" aria-labelledby="app-title">
+    <!-- header -->
+    <header class="header" role="banner">
+      <div class="logo" aria-hidden="true">
+        <!-- keep an <img> inside to show your logo image -->
+        <img src="/static/BeatMindLogo.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+
+      <div class="header-text">
+        <h1 id="app-title">🎵 BeatMind</h1>
+        <p>Your AI Music Production Mentor</p>
+      </div>
+    </header>
+
+    <!-- card that contains the chat -->
+    <section class="card" aria-label="Chat with BeatMind">
+      <div class="chat-container">
+        <div class="chat-window" id="chat-window" aria-live="polite">
+          <!-- Example messages (initial) -->
+          <div class="message beatmind">
+            Welcome to BeatMind. What genre are you making, and what's your BPM?
+            <div class="msg-meta">BeatMind • now</div>
+          </div>
+
+          <!-- user example -->
+          <!-- <div class="message user">Trying a new trap beat — 140 BPM<div class="msg-meta">You • now</div></div> -->
+        </div>
+
+        <!-- Input -->
+        <div class="input-area" role="form" aria-label="Send a message">
+          <input id="user-input" type="text" placeholder="Describe your beat or ask a question..." aria-label="Message" />
+          <button id="send-btn" type="button">Send</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- small script for send/enter + autoscroll -->
+  <script>
+    const input = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+    const chatWindow = document.getElementById('chat-window');
+
+    function appendMessage(text, cls='user') {
+      const wrap = document.createElement('div');
+      wrap.className = 'message ' + cls;
+      wrap.innerHTML = text + '<div class="msg-meta">' + (cls==='user' ? 'You • now' : 'BeatMind • now') + '</div>';
+      chatWindow.appendChild(wrap);
+      // smooth scroll
+      wrap.scrollIntoView({behavior:'smooth', block:'end'});
+    }
+
+    function sendMessage(){
+      const v = input.value.trim();
+      if(!v) return;
+      appendMessage(v, 'user');
+      input.value = '';
+      // simulate assistant reply (replace with your backend call)
+      setTimeout(()=> {
+        appendMessage('Nice! I can turn that into a starting loop — want drums or chords first?', 'beatmind');
+      }, 700);
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keydown', e => { if(e.key === 'Enter') sendMessage(); });
+  </script>
+
+  <script src="/static/script.js" defer></script>
+</body>
+</html>
