@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -53,36 +53,10 @@
     </section>
   </main>
 
-  <!-- small script for send/enter + autoscroll -->
-  <script>
-    const input = document.getElementById('user-input');
-    const sendBtn = document.getElementById('send-btn');
-    const chatWindow = document.getElementById('chat-window');
-
-    function appendMessage(text, cls='user') {
-      const wrap = document.createElement('div');
-      wrap.className = 'message ' + cls;
-      wrap.innerHTML = text + '<div class="msg-meta">' + (cls==='user' ? 'You • now' : 'BeatMind • now') + '</div>';
-      chatWindow.appendChild(wrap);
-      // smooth scroll
-      wrap.scrollIntoView({behavior:'smooth', block:'end'});
-    }
-
-    function sendMessage(){
-      const v = input.value.trim();
-      if(!v) return;
-      appendMessage(v, 'user');
-      input.value = '';
-      // simulate assistant reply (replace with your backend call)
-      setTimeout(()=> {
-        appendMessage('Nice! I can turn that into a starting loop — want drums or chords first?', 'beatmind');
-      }, 700);
-    }
-
-    sendBtn.addEventListener('click', sendMessage);
-    input.addEventListener('keydown', e => { if(e.key === 'Enter') sendMessage(); });
-  </script>
-
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
   <script src="/static/script.js" defer></script>
 </body>
 </html>
+
+

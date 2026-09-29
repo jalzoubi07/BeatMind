@@ -1,5 +1,4 @@
-# Production relationship graph
-# Ripple effect engine using BFS
+﻿from collections import deque
 
 # Directed graph - how sections affect each other
 PRODUCTION_GRAPH = {
@@ -11,23 +10,15 @@ PRODUCTION_GRAPH = {
 }
 
 def get_ripple_effects(changed_section):
-    """
-    BFS traversal to find all sections
-    affected by a change
-    """
+    """BFS to find every section affected by a change, nearest first."""
     affected = []
-    visited = set()
-    queue = [changed_section]
-    
+    visited = {changed_section}
+    queue = deque([changed_section])
     while queue:
-        current = queue.pop(0)
-        if current in visited:
-            continue
-        visited.add(current)
-        
+        current = queue.popleft()
         for neighbor in PRODUCTION_GRAPH.get(current, []):
             if neighbor not in visited:
+                visited.add(neighbor)
                 affected.append(neighbor)
                 queue.append(neighbor)
-    
     return affected

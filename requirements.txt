@@ -1,0 +1,1 @@
+pip freeze | Select-String -Pattern "^(flask|anthropic|python-dotenv)==" | ForEach-Object { $_.Line } | Out-File -Encoding ascii requirements.txt

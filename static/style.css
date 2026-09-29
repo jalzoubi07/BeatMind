@@ -350,3 +350,7 @@ body{
   .app, .shell { padding-left: 16px !important; padding-right: 16px !important; }
 }
 
+
+.message p { margin: 0 0 10px 0; }
+.message p:last-child { margin-bottom: 0; }
+.message ul { margin: 6px 0 10px 0; padding-left: 20px; }

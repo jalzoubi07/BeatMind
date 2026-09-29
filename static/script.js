@@ -1,4 +1,4 @@
-let conversationHistory = [];
+﻿let conversationHistory = [];
 
 async function sendMessage() {
     const input = document.getElementById('user-input');
@@ -48,7 +48,11 @@ function addMessage(text, sender, id = '') {
     const message = document.createElement('div');
     message.className = `message ${sender}`;
     if (id) message.id = id;
-    message.textContent = text;
+    if (sender === 'beatmind' && window.marked && window.DOMPurify) {
+        message.innerHTML = DOMPurify.sanitize(marked.parse(text));
+    } else {
+        message.textContent = text;
+    }
     chatWindow.appendChild(message);
     chatWindow.scrollTop = chatWindow.scrollHeight;
 }
@@ -63,3 +67,6 @@ function handleEnter(event) {
         sendMessage();
     }
 }
+
+document.getElementById('send-btn').addEventListener('click', sendMessage);
+document.getElementById('user-input').addEventListener('keydown', handleEnter);
